@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dmf.sms.mapper.SmsMessagesMapper" >
+  <resultMap id="BaseResultMap" type="com.dmf.sms.pojo.SmsMessages" >
+    <id column="id" property="id" jdbcType="DECIMAL" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="sign" property="sign" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
+    <result column="send_mit" property="sendMit" jdbcType="VARCHAR" />
+    <result column="resp_time" property="respTime" jdbcType="TIMESTAMP" />
+    <result column="resp_report" property="respReport" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="mdate" property="mdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, content, sign, phone, send_time, send_mit, resp_time, resp_report, status, mdate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dmf.sms.pojo.SmsMessagesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sms_messages
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from sms_messages
+    where id = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from sms_messages
+    where id = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dmf.sms.pojo.SmsMessagesExample" >
+    delete from sms_messages
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dmf.sms.pojo.SmsMessages" >
+    insert into sms_messages (id, content, sign, 
+      phone, send_time, send_mit, 
+      resp_time, resp_report, status, 
+      mdate)
+    values (#{id,jdbcType=DECIMAL}, #{content,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{sendTime,jdbcType=TIMESTAMP}, #{sendMit,jdbcType=VARCHAR}, 
+      #{respTime,jdbcType=TIMESTAMP}, #{respReport,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{mdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dmf.sms.pojo.SmsMessages" >
+    insert into sms_messages
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="sign != null" >
+        sign,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="sendTime != null" >
+        send_time,
+      </if>
+      <if test="sendMit != null" >
+        send_mit,
+      </if>
+      <if test="respTime != null" >
+        resp_time,
+      </if>
+      <if test="respReport != null" >
+        resp_report,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="mdate != null" >
+        mdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendMit != null" >
+        #{sendMit,jdbcType=VARCHAR},
+      </if>
+      <if test="respTime != null" >
+        #{respTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="respReport != null" >
+        #{respReport,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="mdate != null" >
+        #{mdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dmf.sms.pojo.SmsMessagesExample" resultType="java.lang.Integer" >
+    select count(*) from sms_messages
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sms_messages
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sign != null" >
+        sign = #{record.sign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendTime != null" >
+        send_time = #{record.sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sendMit != null" >
+        send_mit = #{record.sendMit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.respTime != null" >
+        resp_time = #{record.respTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.respReport != null" >
+        resp_report = #{record.respReport,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.mdate != null" >
+        mdate = #{record.mdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sms_messages
+    set id = #{record.id,jdbcType=DECIMAL},
+      content = #{record.content,jdbcType=VARCHAR},
+      sign = #{record.sign,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      send_time = #{record.sendTime,jdbcType=TIMESTAMP},
+      send_mit = #{record.sendMit,jdbcType=VARCHAR},
+      resp_time = #{record.respTime,jdbcType=TIMESTAMP},
+      resp_report = #{record.respReport,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      mdate = #{record.mdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dmf.sms.pojo.SmsMessages" >
+    update sms_messages
+    <set >
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        sign = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendMit != null" >
+        send_mit = #{sendMit,jdbcType=VARCHAR},
+      </if>
+      <if test="respTime != null" >
+        resp_time = #{respTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="respReport != null" >
+        resp_report = #{respReport,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="mdate != null" >
+        mdate = #{mdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dmf.sms.pojo.SmsMessages" >
+    update sms_messages
+    set content = #{content,jdbcType=VARCHAR},
+      sign = #{sign,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      send_time = #{sendTime,jdbcType=TIMESTAMP},
+      send_mit = #{sendMit,jdbcType=VARCHAR},
+      resp_time = #{respTime,jdbcType=TIMESTAMP},
+      resp_report = #{respReport,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      mdate = #{mdate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>
